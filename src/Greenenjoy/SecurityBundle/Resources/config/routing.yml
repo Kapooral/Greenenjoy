@@ -1,0 +1,20 @@
+greenenjoy_homepage:
+    path:     /
+    defaults: 
+        _controller: GreenenjoySecurityBundle:Security:index
+
+greenenjoy_login:
+    path: /login
+    defaults:
+        _controller: GreenenjoySecurityBundle:Security:login
+
+greenenjoy_login_check:
+    path: /login_check
+
+greenenjoy_logout:
+    path: /logout
+
+greenenjoy_dashboard:
+    path: /dashboard
+    defaults:
+      _controller: GreenenjoySecurityBundle:Security:dashboard

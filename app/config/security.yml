@@ -1,11 +1,21 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    encoders:
+        Greenenjoy\SecurityBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        main:
+            entity:
+                class: Greenenjoy\SecurityBundle\Entity\User
+                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,7 +24,22 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            pattern: ^/
+            anonymous: true
+            provider: main
+
+            form_login:
+                login_path: greenenjoy_login
+                check_path: greenenjoy_login_check
+                default_target_path: greenenjoy_dashboard
+                csrf_token_generator: security.csrf.token_manager
+
+            remember_me:
+                secret: '%secret%'
+
+            logout:
+                path: greenenjoy_logout
+                target: greenenjoy_homepage
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
