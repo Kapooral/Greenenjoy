@@ -5,7 +5,7 @@ namespace Greenenjoy\SecurityBundle\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Greenenjoy\SecurityBundle\Entity\User;
-use Greenenjoy\SecurityBundle\Roles\Profil;
+use Greenenjoy\CoreBundle\Roles\Profil;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixture implements ORMFixtureInterface
@@ -23,7 +23,7 @@ class UserFixture implements ORMFixtureInterface
 		$user->setName('Ornella');
 		$user->setLastname('Hagege');
 		$user->setUsername('Ornella H.');
-		$user->setEmail('hagege.ornella@hotmail.com');
+		$user->setEmail('mbenguia.husseini@live.fr');
 		$user->setRoles(Profil::ADMIN);
 
 		$password = $this->encoder->encodePassword($user, 'Jkl123');

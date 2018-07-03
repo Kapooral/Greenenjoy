@@ -3,7 +3,7 @@
 namespace Greenenjoy\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Greenenjoy\SecurityBundle\Roles\Profil;
+use Greenenjoy\CoreBundle\Roles\Profil;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 
@@ -432,7 +432,7 @@ class User implements UserInterface
     {
     	if (in_array($roles, Profil::getValues()))
     	{
-    		$this->roles = $roles;
+    		$this->roles = array($roles);
         	return $this;
     	} 
     	else

@@ -1,7 +1,6 @@
 <?php
 
-namespace  Greenenjoy\SecurityBundle\Roles;
-
+namespace  Greenenjoy\CoreBundle\Roles;
 
 class Profil
 {
