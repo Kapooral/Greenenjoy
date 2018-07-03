@@ -1,3 +1,7 @@
+greenenjoy_core:
+    resource: "@GreenenjoyCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 greenenjoy_security:
     resource: "@GreenenjoySecurityBundle/Resources/config/routing.yml"
     prefix:   /

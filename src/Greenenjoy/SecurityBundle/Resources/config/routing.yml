@@ -1,8 +1,3 @@
-greenenjoy_homepage:
-    path:     /
-    defaults: 
-        _controller: GreenenjoySecurityBundle:Security:index
-
 greenenjoy_login:
     path: /login
     defaults:
@@ -13,8 +8,3 @@ greenenjoy_login_check:
 
 greenenjoy_logout:
     path: /logout
-
-greenenjoy_dashboard:
-    path: /dashboard
-    defaults:
-      _controller: GreenenjoySecurityBundle:Security:dashboard

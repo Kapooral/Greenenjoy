@@ -1,0 +1,9 @@
+greenenjoy_homepage:
+    path:     /
+    defaults: 
+        _controller: GreenenjoyCoreBundle:Core:index
+
+greenenjoy_dashboard:
+    path: /dashboard
+    defaults:
+      _controller: GreenenjoyCoreBundle:Core:dashboard
