@@ -6,4 +6,4 @@ greenenjoy_homepage:
 greenenjoy_dashboard:
     path: /dashboard
     defaults:
-      _controller: GreenenjoyCoreBundle:Core:dashboard
+        _controller: GreenenjoyCoreBundle:Core:dashboard

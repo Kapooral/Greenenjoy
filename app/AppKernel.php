@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Greenenjoy\SecurityBundle\GreenenjoySecurityBundle(),
             new Greenenjoy\CoreBundle\GreenenjoyCoreBundle(),
+            new Greenenjoy\PostBundle\GreenenjoyPostBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

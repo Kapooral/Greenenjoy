@@ -39,7 +39,7 @@ class User implements UserInterface
     private $lastName;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
      */
@@ -53,42 +53,42 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
      */
     private $facebook;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="instagram", type="string", length=255, nullable=true)
      */
     private $instagram;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="tweeter", type="string", length=255, nullable=true)
      */
     private $tweeter;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="profilePicture", type="string", length=255, nullable=true)
      */
     private $profilePicture;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="biography", type="text", length=255, nullable=true)
+     * @ORM\Column(name="biography", type="text", nullable=true)
      */
     private $biography;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="coverBiography", type="string", length=255, nullable=true)
      */
@@ -102,7 +102,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      */
@@ -116,7 +116,7 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="token", type="string", length=255, nullable=true, unique=true)
      */
@@ -184,11 +184,11 @@ class User implements UserInterface
     /**
      * Set username
      *
-     * @param string $username
+     * @param string|null $username
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setUsername($username = null)
     {
         $this->username = $username;
 
@@ -198,7 +198,7 @@ class User implements UserInterface
     /**
      * Get username
      *
-     * @return string
+     * @return string|null
      */
     public function getUsername()
     {
@@ -232,11 +232,11 @@ class User implements UserInterface
     /**
      * Set facebook
      *
-     * @param string $facebook
+     * @param string|null $facebook
      *
      * @return User
      */
-    public function setFacebook($facebook)
+    public function setFacebook($facebook = null)
     {
         $this->facebook = $facebook;
 
@@ -246,7 +246,7 @@ class User implements UserInterface
     /**
      * Get facebook
      *
-     * @return string
+     * @return string|null
      */
     public function getFacebook()
     {
@@ -256,11 +256,11 @@ class User implements UserInterface
     /**
      * Set instagram
      *
-     * @param string $instagram
+     * @param string|null $instagram
      *
      * @return User
      */
-    public function setInstagram($instagram)
+    public function setInstagram($instagram = null)
     {
         $this->instagram = $instagram;
 
@@ -270,7 +270,7 @@ class User implements UserInterface
     /**
      * Get instagram
      *
-     * @return string
+     * @return string|null
      */
     public function getInstagram()
     {
@@ -280,11 +280,11 @@ class User implements UserInterface
     /**
      * Set tweeter
      *
-     * @param string $tweeter
+     * @param string|null $tweeter
      *
      * @return User
      */
-    public function setTweeter($tweeter)
+    public function setTweeter($tweeter = null)
     {
         $this->tweeter = $tweeter;
 
@@ -294,7 +294,7 @@ class User implements UserInterface
     /**
      * Get tweeter
      *
-     * @return string
+     * @return string|null
      */
     public function getTweeter()
     {
@@ -304,11 +304,11 @@ class User implements UserInterface
     /**
      * Set profilePicture
      *
-     * @param string $profilePicture
+     * @param string|null $profilePicture
      *
      * @return User
      */
-    public function setProfilePicture($profilePicture)
+    public function setProfilePicture($profilePicture = null)
     {
         $this->profilePicture = $profilePicture;
 
@@ -318,7 +318,7 @@ class User implements UserInterface
     /**
      * Get profilePicture
      *
-     * @return string
+     * @return string|null
      */
     public function getProfilePicture()
     {
@@ -328,11 +328,11 @@ class User implements UserInterface
     /**
      * Set biography
      *
-     * @param string $biography
+     * @param string|null $biography
      *
      * @return User
      */
-    public function setBiography($biography)
+    public function setBiography($biography = null)
     {
         $this->biography = $biography;
 
@@ -342,7 +342,7 @@ class User implements UserInterface
     /**
      * Get biography
      *
-     * @return string
+     * @return string|null
      */
     public function getBiography()
     {
@@ -352,11 +352,11 @@ class User implements UserInterface
     /**
      * Set coverBiography
      *
-     * @param string $coverBiography
+     * @param string|null $coverBiography
      *
      * @return User
      */
-    public function setCoverBiography($coverBiography)
+    public function setCoverBiography($coverBiography = null)
     {
         $this->coverBiography = $coverBiography;
 
@@ -366,7 +366,7 @@ class User implements UserInterface
     /**
      * Get coverBiography
      *
-     * @return string
+     * @return string|null
      */
     public function getCoverBiography()
     {
@@ -400,11 +400,11 @@ class User implements UserInterface
     /**
      * Set salt
      *
-     * @param string $salt
+     * @param string|null $salt
      *
      * @return User
      */
-    public function setSalt($salt)
+    public function setSalt($salt = null)
     {
         $this->salt = $salt;
 
@@ -414,7 +414,7 @@ class User implements UserInterface
     /**
      * Get salt
      *
-     * @return string
+     * @return string|null
      */
     public function getSalt()
     {
@@ -454,11 +454,11 @@ class User implements UserInterface
     /**
      * Set token
      *
-     * @param string $token
+     * @param string|null $token
      *
      * @return User
      */
-    public function setToken($token)
+    public function setToken($token = null)
     {
         $this->token = $token;
 
@@ -468,7 +468,7 @@ class User implements UserInterface
     /**
      * Get token
      *
-     * @return string
+     * @return string|null
      */
     public function getToken()
     {

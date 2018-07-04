@@ -1,0 +1,190 @@
+<?php
+
+namespace Greenenjoy\PostBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Greenenjoy\PostBundle\State\State;
+
+/**
+ * Post
+ *
+ * @ORM\Table(name="post")
+ * @ORM\Entity(repositoryClass="Greenenjoy\PostBundle\Repository\PostRepository")
+ */
+class Post
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Greenenjoy\PostBundle\Entity\Categories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, unique=true)
+     */
+    private $title;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="subtitle", type="string", length=255, nullable=true)
+     */
+    private $subtitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="coverImage", type="string", length=255, nullable=true)
+     */
+    private $coverImage;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="likes", type="array")
+     */
+    private $likes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=255)
+     */
+    private $state;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="postDate", type="date")
+     */
+    private $postDate;
+
+    public function __construct()
+    {
+        $this->state = State::STANDBY;
+    }
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return Post
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set subtitle.
+     *
+     * @param string|null $subtitle
+     *
+     * @return Post
+     */
+    public function setSubtitle($subtitle = null)
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    /**
+     * Get subtitle.
+     *
+     * @return string|null
+     */
+    public function getSubtitle()
+    {
+        return $this->subtitle;
+    }
+
+    /**
+     * Set coverImage.
+     *
+     * @param string|null $coverImage
+     *
+     * @return Post
+     */
+    public function setCoverImage($coverImage = null)
+    {
+        $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    /**
+     * Get coverImage.
+     *
+     * @return string|null
+     */
+    public function getCoverImage()
+    {
+        return $this->coverImage;
+    }
+
+    /**
+     * Set postDate.
+     *
+     * @param \DateTime $postDate
+     *
+     * @return Post
+     */
+    public function setPostDate($postDate)
+    {
+        $this->postDate = $postDate;
+
+        return $this;
+    }
+
+    /**
+     * Get postDate.
+     *
+     * @return \DateTime
+     */
+    public function getPostDate()
+    {
+        return $this->postDate;
+    }
+}

@@ -1,0 +1,4 @@
+greenenjoy_add_post:
+    path: /dashboard/add
+    defaults:
+        _controller: GreenenjoyPostBundle:Post:add
