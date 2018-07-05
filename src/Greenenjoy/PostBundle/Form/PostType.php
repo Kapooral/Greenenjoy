@@ -24,7 +24,8 @@ class PostType extends AbstractType
                     'required' => false))
                 ->add('content', TextareaType::class, array(
                     'label' => 'Contenu'))
-                ->add('image', ImageType::class)
+                ->add('image', ImageType::class, array(
+                    'required' => false))
                 ->add('categorie', EntityType::class, array(
                     'class' => 'GreenenjoyPostBundle:Categories',
                     'choice_label' => 'name'));

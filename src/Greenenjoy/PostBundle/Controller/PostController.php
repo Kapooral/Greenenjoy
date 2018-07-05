@@ -33,4 +33,9 @@ class PostController extends Controller
 
     	return $this->render('@GreenenjoyPost/Backoffice/edit_post.html.twig', array('form' => $form->createView()));
     }
+
+    public function viewAttitudeAction(Request $request)
+    {
+    	
+    }
 }

@@ -4,6 +4,8 @@ namespace Greenenjoy\PostBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Greenenjoy\PostBundle\Entity\Post;
 
 /**
  * Categories
@@ -28,6 +30,19 @@ class Categories
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity = "Greenenjoy\PostBundle\Entity\Post", mappedBy = "categorie")
+     */
+    private $posts;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * Get id.
@@ -61,5 +76,41 @@ class Categories
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * Add post.
+     *
+     * @param \Greenenjoy\PostBundle\Entity\Post $post
+     *
+     * @return Categories
+     */
+    public function addPost(Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post.
+     *
+     * @param \Greenenjoy\PostBundle\Entity\Post $post
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePost(Post $post)
+    {
+        return $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

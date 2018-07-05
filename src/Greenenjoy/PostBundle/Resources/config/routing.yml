@@ -2,3 +2,8 @@ greenenjoy_add_post:
     path: /dashboard/add
     defaults:
         _controller: GreenenjoyPostBundle:Post:add
+
+greenenjoy_view_attitude:
+    path: /slow-attitude
+    defaults:
+        _controller: GreenenjoyPostBundle:Post:viewAttitude

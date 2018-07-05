@@ -25,7 +25,7 @@ class Post
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Greenenjoy\PostBundle\Entity\Categories")
+     * @ORM\ManyToOne(targetEntity = "Greenenjoy\PostBundle\Entity\Categories", inversedBy = "posts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
