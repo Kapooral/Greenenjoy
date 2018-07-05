@@ -3,6 +3,7 @@
 namespace Greenenjoy\PostBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Greenenjoy\PostBundle\State\State;
 
 /**
@@ -50,11 +51,9 @@ class Post
     private $content;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="coverImage", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="Greenenjoy\PostBundle\Entity\Image", cascade={"persist","remove"})
      */
-    private $coverImage;
+    private $image;
 
     /**
      * @var array
@@ -80,6 +79,7 @@ class Post
     public function __construct()
     {
         $this->state = State::STANDBY;
+        $this->likes = [];
     }
 
     /**
@@ -141,30 +141,6 @@ class Post
     }
 
     /**
-     * Set coverImage.
-     *
-     * @param string|null $coverImage
-     *
-     * @return Post
-     */
-    public function setCoverImage($coverImage = null)
-    {
-        $this->coverImage = $coverImage;
-
-        return $this;
-    }
-
-    /**
-     * Get coverImage.
-     *
-     * @return string|null
-     */
-    public function getCoverImage()
-    {
-        return $this->coverImage;
-    }
-
-    /**
      * Set postDate.
      *
      * @param \DateTime $postDate
@@ -186,5 +162,101 @@ class Post
     public function getPostDate()
     {
         return $this->postDate;
+    }
+
+    /**
+     * Set content.
+     *
+     * @param string $content
+     *
+     * @return Post
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content.
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set likes.
+     *
+     * @param array $likes
+     *
+     * @return Post
+     */
+    public function setLikes($likes)
+    {
+        $this->likes[] = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes.
+     *
+     * @return array
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * Set state.
+     *
+     * @param string $state
+     *
+     * @return Post
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state.
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set categorie.
+     *
+     * @param \Greenenjoy\PostBundle\Entity\Categories $categorie
+     *
+     * @return Post
+     */
+    public function setCategorie(\Greenenjoy\PostBundle\Entity\Categories $categorie)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie.
+     *
+     * @return \Greenenjoy\PostBundle\Entity\Categories
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }

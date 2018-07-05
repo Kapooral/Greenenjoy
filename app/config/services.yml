@@ -18,6 +18,10 @@ services:
         resource: '../../src/Greenenjoy/SecurityBundle/DataFixtures/*'
         tags: ['doctrine.fixtures.orm']
 
+    Greenenjoy\PostBundle\DataFixtures\:
+        resource: '../../src/Greenenjoy/PostBundle/DataFixtures/*'
+        tags: ['doctrine.fixtures.orm']
+
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     #AppBundle\:

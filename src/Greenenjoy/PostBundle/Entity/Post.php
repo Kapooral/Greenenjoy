@@ -3,6 +3,8 @@
 namespace Greenenjoy\PostBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Greenenjoy\PostBundle\State\State;
 
 /**
@@ -50,11 +52,10 @@ class Post
     private $content;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="coverImage", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="Greenenjoy\PostBundle\Entity\Image", cascade={"persist","remove"})
+     * @Assert\Valid()
      */
-    private $coverImage;
+    private $image;
 
     /**
      * @var array
@@ -142,30 +143,6 @@ class Post
     }
 
     /**
-     * Set coverImage.
-     *
-     * @param string|null $coverImage
-     *
-     * @return Post
-     */
-    public function setCoverImage($coverImage = null)
-    {
-        $this->coverImage = $coverImage;
-
-        return $this;
-    }
-
-    /**
-     * Get coverImage.
-     *
-     * @return string|null
-     */
-    public function getCoverImage()
-    {
-        return $this->coverImage;
-    }
-
-    /**
      * Set postDate.
      *
      * @param \DateTime $postDate
@@ -246,9 +223,15 @@ class Post
      */
     public function setState($state)
     {
-        $this->state = $state;
-
-        return $this;
+        if (in_array($state, State::getValues()))
+        {
+            $this->state = $state;
+            return $this;
+        }
+        else
+        {
+            throw new InvalidArgumentException('Impossible de publier l\'article.');
+        }
     }
 
     /**
@@ -283,5 +266,29 @@ class Post
     public function getCategorie()
     {
         return $this->categorie;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param \Greenenjoy\PostBundle\Entity\Image|null $image
+     *
+     * @return Post
+     */
+    public function setImage(\Greenenjoy\PostBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return \Greenenjoy\PostBundle\Entity\Image|null
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

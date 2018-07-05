@@ -14,7 +14,7 @@ class SecurityController extends Controller
 	{
 		if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 			
-			return $this->redirectToRoute('greenenjoy_homepage');
+			return $this->redirectToRoute('greenenjoy_dashboard');
 		}
 
 		$authenticationUtils = $this->get('security.authentication_utils');

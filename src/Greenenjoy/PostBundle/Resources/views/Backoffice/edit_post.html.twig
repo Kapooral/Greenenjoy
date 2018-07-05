@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+
+		{{ form_start(form) }}
+		{{ form_errors(form) }}
+
+		<div>
+			{{ form_label(form.title) }}
+			{{ form_errors(form.title) }}
+			{{ form_widget(form.title) }}
+		</div>
+		<div>
+			{{ form_label(form.subtitle) }}
+			{{ form_errors(form.subtitle) }}
+			{{ form_widget(form.subtitle) }}
+		</div>
+		<div>
+			{{ form_label(form.content) }}
+			{{ form_errors(form.content) }}
+			{{ form_widget(form.content) }}
+		</div>
+		<div>
+			{{ form_errors(form.image) }}
+			{{ form_widget(form.image) }}
+		</div>
+		<div>
+			{{ form_label(form.categorie) }}
+			{{ form_errors(form.categorie) }}
+			{{ form_widget(form.categorie) }}
+		</div>
+
+		{{ form_rest(form) }}
+
+		<input type="submit" value="Publier" />
+		{{ form_end(form) }}
+
+	</body>
+</html>

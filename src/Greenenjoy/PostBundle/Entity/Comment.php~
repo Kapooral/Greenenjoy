@@ -3,6 +3,7 @@
 namespace Greenenjoy\PostBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -141,5 +142,53 @@ class Comment
     public function getCommentDate()
     {
         return $this->commentDate;
+    }
+
+    /**
+     * Set reported.
+     *
+     * @param int $reported
+     *
+     * @return Comment
+     */
+    public function setReported($reported)
+    {
+        $this->reported = $reported;
+
+        return $this;
+    }
+
+    /**
+     * Get reported.
+     *
+     * @return int
+     */
+    public function getReported()
+    {
+        return $this->reported;
+    }
+
+    /**
+     * Set post.
+     *
+     * @param \Greenenjoy\PostBundle\Entity\Post $post
+     *
+     * @return Comment
+     */
+    public function setPost(\Greenenjoy\PostBundle\Entity\Post $post)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post.
+     *
+     * @return \Greenenjoy\PostBundle\Entity\Post
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }
