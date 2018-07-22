@@ -21,7 +21,8 @@ class PostController extends Controller
     	$form = $this->createForm(PostType::class, $post);
 
     	if ($request->isMethod('Post') && $form->handleRequest($request) && $form->isValid()) {
-    		$post->setState(State::POSTED);
+    		$post->setAuthor($this->getUser());
+            $post->setState(State::POSTED);
     		$post->setPostDate(new \DateTime());
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($post);
@@ -34,8 +35,14 @@ class PostController extends Controller
     	return $this->render('@GreenenjoyPost/Backoffice/edit_post.html.twig', array('form' => $form->createView()));
     }
 
-    public function viewAttitudeAction(Request $request)
+    public function viewAction($title, Request $request)
     {
-    	
+        $post = $this->getDoctrine()->getManager()->getRepository('GreenenjoyPostBundle:Post')->findOneby(array('slug' => $title));
+
+        if ($post === null) {
+            $request->getSession()->getFlashBag()->add('error', 'Aucune annonce n\'a été trouvée avec ce titre.');
+        }
+
+    	return $this->render('@GreenenjoyPost/Frontoffice/post_view.html.twig', array('post' => $post));
     }
 }

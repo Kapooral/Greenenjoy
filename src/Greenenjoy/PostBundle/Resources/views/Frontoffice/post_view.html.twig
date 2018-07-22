@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		{% if post %}
+			<title>{{ post.title }}</title>
+		{% else %}
+			<title>Annonce non trouvée</title>
+		{% endif %}
+	</head>
+	<body>
+
+		{% if post %}
+
+			<p>Titre : {{ post.title }}</p>
+			<p>Citation : {{ post.subtitle }}</p>
+			<p>Auteur : {{ post.author.username }}</p>
+			<p>Date de publication : {{ post.postDate | date('d.m.Y') }}</p>
+
+			{% if post.image %}
+				<img src="{{ asset('uploads/img/') }}{{ post.image.id }}.{{ post.image.extension }}" alt="{{ post.image.alt }}" height="300" width="600">
+			{% endif %}
+
+			{% autoescape false %}
+				{{ post.content }}
+			{% endautoescape %}
+
+			
+
+		{% else %}
+
+			{% for message in app.flashes('error') %}
+				<p>
+					{{ message }}
+				</p>
+			{% endfor %}
+
+		{% endif %}
+
+	</body>
+</html>

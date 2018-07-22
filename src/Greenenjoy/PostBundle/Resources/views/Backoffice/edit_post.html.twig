@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
+		<title>Editer un article</title>
 	</head>
 	<body>
 
@@ -36,6 +38,21 @@
 
 		<input type="submit" value="Publier" />
 		{{ form_end(form) }}
+
+		<script src = "{{ asset('bundles/greenenjoycore/jquery/jquery-3.3.1.js') }}"></script>
+		<script src = "{{ asset('bundles/greenenjoycore/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+  		<script>
+  			tinymce.init({
+  				selector:'textarea#post_content',
+  				auto_focus: 'post_content',
+  				language: "fr_FR",
+  				plugins: "image, link, anchor, lists, table, textcolor colorpicker, charmap, contextmenu, help, hr, nonbreaking, preview, print, searchreplace, wordcount, visualblocks", 
+		    	toolbar: "undo redo | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table anchor link image",
+		    	contextmenu: "undo redo | bold italic underline | link image inserttable | cell row column deletetable",
+		    	forced_root_block: false,
+		    	force_br_newlines: true,
+		    	force_p_newlines: false});
+  		</script>
 
 	</body>
 </html>

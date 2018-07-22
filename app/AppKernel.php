@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Greenenjoy\SecurityBundle\GreenenjoySecurityBundle(),
             new Greenenjoy\CoreBundle\GreenenjoyCoreBundle(),
             new Greenenjoy\PostBundle\GreenenjoyPostBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

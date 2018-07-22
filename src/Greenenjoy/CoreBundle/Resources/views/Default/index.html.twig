@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Page d'accueil</title>
+	</head>
+	<body>
+		
+		<p>
+			<a href="{{ path('greenenjoy_login') }}">Se connecter</a>
+		</p>
+		<hr />
+
+		{% if categories %}
+
+			{% for categorie in categories %}
+				<p>
+					<a href="{{ path('greenenjoy_bycategorie', { 'categorie': categorie.slug }) }}">{{ categorie.name }}</a>
+				</p>
+			{% endfor %}
+
+		{% endif %}
+		
+		<hr />
+		<p>
+			<a href="https://www.instagram.com/hi_nella_e/">Retrouvez-moi sur instagram</a>
+		</p>
+
+	</body>
+</html>

@@ -3,7 +3,7 @@ greenenjoy_add_post:
     defaults:
         _controller: GreenenjoyPostBundle:Post:add
 
-greenenjoy_view_attitude:
-    path: /slow-attitude
+greenenjoy_view_post:
+    path: /posts/{categorie}/{title}
     defaults:
-        _controller: GreenenjoyPostBundle:Post:viewAttitude
+        _controller: GreenenjoyPostBundle:Post:view

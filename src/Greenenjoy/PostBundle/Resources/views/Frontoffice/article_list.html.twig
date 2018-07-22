@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		{% if categorie %}
+			<title>{{ categorie.name }}</title>
+		{% else %}
+			<title>Greenenjoy - Aucune catégorie</title>
+		{% endif %}
+	</head>
+	<body>
+
+		{% if categorie %}
+
+			<p>
+				Catégorie : {{ categorie.name }}
+			</p>
+			<hr />
+
+			{% if categorie.posts | length > 0 %}
+
+				{% for post in categorie.posts %}
+					<p>
+						<a href="{{ path('greenenjoy_view_post', { 'categorie': categorie.slug, 'title': post.slug }) }}">{{ post.title }}</a>
+					</p>
+				{% endfor %}
+
+			{% else %}
+				<p>
+					Aucune annonce publié dans cette catégorie.
+				</p>
+			{% endif %}
+
+		{% else %}
+
+			{% for message in app.flashes('error') %}
+				<p>
+					{{ message }}
+				</p>
+			{% endfor %}
+
+		{% endif %}
+
+	</body>
+</html>

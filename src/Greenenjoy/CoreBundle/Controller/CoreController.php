@@ -11,9 +11,21 @@ class CoreController extends Controller
 {
 	public function indexAction()
 	{
-        return $this->render('default/index.html.twig', [
+		$categories = $this->getDoctrine()->getManager()->getRepository('GreenenjoyPostBundle:Categories')->findAll();
+		return $this->render('@GreenenjoyCore/Default/index.html.twig', array('categories' => $categories));
+        /*return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        ]);*/
+	}
+
+	public function byCategorieAction($categorie, Request $request)
+	{
+		$categorieSelected = $this->getDoctrine()->getManager()->getRepository('GreenenjoyPostBundle:Categories')->findOneBy(array('slug' => $categorie));
+		if ($categorieSelected === null) {
+			$request->getSession()->getFlashBag()->add('error', 'Cette catégorie n\'existe pas.');
+		}
+
+		return $this->render('@GreenenjoyPost/Frontoffice/article_list.html.twig', array('categorie' => $categorieSelected));
 	}
 
     /**

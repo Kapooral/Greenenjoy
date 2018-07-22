@@ -3,6 +3,7 @@
 namespace Greenenjoy\PostBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Greenenjoy\PostBundle\State\State;
@@ -38,6 +39,12 @@ class Post
     private $title;
 
     /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
+
+    /**
      * @var string|null
      *
      * @ORM\Column(name="subtitle", type="string", length=255, nullable=true)
@@ -50,6 +57,12 @@ class Post
      * @ORM\Column(name="content", type="text")
      */
     private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Greenenjoy\SecurityBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     /**
      * @ORM\OneToOne(targetEntity="Greenenjoy\PostBundle\Entity\Image", cascade={"persist","remove"})
@@ -290,5 +303,53 @@ class Post
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set slug.
+     *
+     * @param string $slug
+     *
+     * @return Post
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set author.
+     *
+     * @param \Greenenjoy\SecurityBundle\Entity\User $author
+     *
+     * @return Post
+     */
+    public function setAuthor(\Greenenjoy\SecurityBundle\Entity\User $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author.
+     *
+     * @return \Greenenjoy\SecurityBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

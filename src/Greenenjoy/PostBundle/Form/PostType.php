@@ -23,7 +23,8 @@ class PostType extends AbstractType
                     'label' => 'Citation',
                     'required' => false))
                 ->add('content', TextareaType::class, array(
-                    'label' => 'Contenu'))
+                    'label' => 'Contenu',
+                    'required' => false))
                 ->add('image', ImageType::class, array(
                     'required' => false))
                 ->add('categorie', EntityType::class, array(

@@ -7,3 +7,8 @@ greenenjoy_dashboard:
     path: /dashboard
     defaults:
         _controller: GreenenjoyCoreBundle:Core:dashboard
+
+greenenjoy_bycategorie:
+    path: /posts/{categorie}
+    defaults:
+        _controller: GreenenjoyCoreBundle:Core:byCategorie
