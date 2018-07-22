@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Greenenjoy\PostBundle\Entity\Post;
 use Greenenjoy\PostBundle\Form\PostType;
+use Greenenjoy\PostBundle\Entity\Comment;
+use Greenenjoy\PostBundle\Form\CommentType;
 use Greenenjoy\PostBundle\State\State;
 
 class PostController extends Controller
@@ -37,12 +39,25 @@ class PostController extends Controller
 
     public function viewAction($title, Request $request)
     {
-        $post = $this->getDoctrine()->getManager()->getRepository('GreenenjoyPostBundle:Post')->findOneby(array('slug' => $title));
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('GreenenjoyPostBundle:Post')->findOneby(array('slug' => $title));
 
         if ($post === null) {
-            $request->getSession()->getFlashBag()->add('error', 'Aucune annonce n\'a été trouvée avec ce titre.');
+            $request->getSession()->getFlashBag()->add('error', 'Aucune annonce de ce titre n\'a été trouvée.');
+            return new Response('PAGE 404');
         }
 
-    	return $this->render('@GreenenjoyPost/Frontoffice/post_view.html.twig', array('post' => $post));
+        $comment_list = $em->getRepository('GreenenjoyPostBundle:Comment')->findBy(array('post' => $post), array('commentDate' => 'desc'));
+        $comment = new Comment();
+        $comment_form = $this->createForm(CommentType::class, $comment);
+
+        if ($request->isMethod('POST') && $comment_form->handleRequest($request) && $comment_form->isValid()) {
+            $comment->setPost($post);
+            $em->persist($comment);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('success', 'Votre commentaire a bien été posté !');
+        }
+
+    	return $this->render('@GreenenjoyPost/Frontoffice/post_view.html.twig', array('post' => $post,'comment_list' => $comment_list, 'comment_form' => $comment_form->createView()));
     }
 }

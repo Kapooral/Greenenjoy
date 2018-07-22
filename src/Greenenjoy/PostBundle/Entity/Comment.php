@@ -45,7 +45,8 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="commentDate", type="date")
+     * @ORM\Column(name="commentDate", type="datetime")
+     * @Assert\DateTime()
      */
     private $commentDate;
 

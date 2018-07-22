@@ -9,6 +9,16 @@
 		{% endif %}
 	</head>
 	<body>
+		{% for message in app.flashes('success') %}
+			<p>
+				{{ message }}
+			</p>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<p>
+				{{ message }}
+			</p>
+		{% endfor %}
 
 		{% if post %}
 
@@ -25,14 +35,39 @@
 				{{ post.content }}
 			{% endautoescape %}
 
-			
+			<br />
+			<br />
+			<hr />
 
-		{% else %}
+			{{ form_start(comment_form) }}
+			{{ form_errors(comment_form) }}
 
-			{% for message in app.flashes('error') %}
-				<p>
-					{{ message }}
-				</p>
+			<div>
+				{{ form_label(comment_form.name) }}
+				{{ form_errors(comment_form.name) }}
+				{{ form_widget(comment_form.name) }}
+			</div>
+			<div>
+				{{ form_label(comment_form.content) }}
+				{{ form_errors(comment_form.content) }}
+				{{ form_widget(comment_form.content) }}
+			</div>
+
+			{{ form_rest(comment_form) }}
+			<input type="submit" value="Publier" />
+			{{ form_end(comment_form) }}
+
+			<br />
+			<br />
+			<hr />
+
+			{% for comment in comment_list %}
+				<div>
+					{{ comment.name }}<br />
+					{{ comment.content }}<br />
+					Le {{ comment.commentDate | date('d.m.Y à H:i:s') }}
+				</div>
+				<br />
 			{% endfor %}
 
 		{% endif %}
