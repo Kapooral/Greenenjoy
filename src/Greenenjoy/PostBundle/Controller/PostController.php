@@ -51,11 +51,11 @@ class PostController extends Controller
         $comment = new Comment();
         $comment_form = $this->createForm(CommentType::class, $comment);
 
-        if ($request->isMethod('POST') && $comment_form->handleRequest($request) && $comment_form->isValid()) {
+        if ($request->isXmlHttpRequest() && $comment_form->handleRequest($request) && $comment_form->isValid()) {
             $comment->setPost($post);
             $em->persist($comment);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('success', 'Votre commentaire a bien été posté !');
+            return $this->json(array('success' => 1, 'message' => 'Commentaire posté !'));
         }
 
     	return $this->render('@GreenenjoyPost/Frontoffice/post_view.html.twig', array('post' => $post,'comment_list' => $comment_list, 'comment_form' => $comment_form->createView()));
