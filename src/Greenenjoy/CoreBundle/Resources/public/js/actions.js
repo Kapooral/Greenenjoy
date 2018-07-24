@@ -41,21 +41,19 @@ $(function() {
 
 });
 
-function reportComment(id){
-
+function reportComment(id, target, token){
+	
 	swal({
 	    icon: 'warning',
 	    text: 'Voulez-vous signaler ce commentaire ?',
 	    buttons: ['Annuler', 'Signaler']
 	}).then((result) => {
 		if (result){
-			var form = $('[name=report]');
-			var type = form.attr('method');
-			var target = form.attr('action');
-			var data = {'comment_id': id, 'authenticate': form.find('[name]').val()};
+
+			var data = {'comment_id': id, 'authenticate': token};
 
 			$.ajax({
-				type: type,
+				type: 'POST',
 				url: target,
 				data: data,
 				dataType: 'JSON',
@@ -92,41 +90,49 @@ function reportComment(id){
 }
 
 
-function authorizeComment(id, token){
+function authorizeComment(id, target, token){
 
 	swal({
-	    type: 'warning',
+	    icon: 'warning',
 	    text: 'Voulez-vous autoriser ce commentaire ?',
-	    showCancelButton: true,
-	    cancelButtonText: 'Non',
-	    cancelButtonColor: '#a94442',
-	    confirmButtonColor: '#3c763d',
-	    confirmButtonText: 'Oui'
+	    buttons: ['Annuler', 'Autoriser']
 	}).then((result) => {
-		if (result.value){
+		if (result){
+
+			var data = {'comment_id': id, 'authenticate': token};
+
 			$.ajax({
-				type: 'GET',
-				url: 'index.php',
-				data: 'action=authorize&id=' + id + '&token=' + token,
+				type: 'POST',
+				url: target,
+				data: data,
 				dataType: 'JSON',
 				success: function(data){
 					if(data.success){
 						swal({
-						    type: 'success',
-						    text: data.text,
-						    showConfirmButton: false,
-						    timer: 1500
+						    icon: 'success',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
 					    });
 
 					    setTimeout(function(){ location.reload(); }, 1500);
+					}
+					else
+					{
+						swal({
+						    icon: 'error',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
+					    });
 					}
 				},
 				error: function(data){
 					swal({
 						type: 'error',
 						text: data,
-						showConfirmButton: false,
-						timer: 1500
+						button: false,
+						timer: 2000
 					});
 				}
 			});
@@ -135,41 +141,49 @@ function authorizeComment(id, token){
 }
 
 
-function deleteComment(id, token){
+function deleteComment(id, target, token){
 
 	swal({
-	    type: 'warning',
+	    icon: 'warning',
 	    text: 'Voulez-vous supprimer ce commentaire ?',
-	    showCancelButton: true,
-	    cancelButtonText: 'Non',
-	    cancelButtonColor: '#a94442',
-	    confirmButtonColor: '#3c763d',
-	    confirmButtonText: 'Oui'
+	    buttons: ['Annuler', 'Supprimer']
 	}).then((result) => {
-		if (result.value){
+		if (result){
+
+			var data = {'comment_id': id, 'authenticate': token};
+
 			$.ajax({
-				type: 'GET',
-				url: 'index.php',
-				data: 'action=deleteComment&id=' + id + '&token=' + token,
+				type: 'POST',
+				url: target,
+				data: data,
 				dataType: 'JSON',
 				success: function(data){
 					if(data.success){
 						swal({
-						    type: 'success',
-						    text: data.text,
-						    showConfirmButton: false,
-						    timer: 1500
+						    icon: 'success',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
 					    });
 
 					    setTimeout(function(){ location.reload(); }, 1500);
+					}
+					else
+					{
+						swal({
+						    icon: 'error',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
+					    });
 					}
 				},
 				error: function(data){
 					swal({
 						type: 'error',
 						text: data,
-						showConfirmButton: false,
-						timer: 1500
+						button: false,
+						timer: 2000
 					});
 				}
 			});
@@ -190,29 +204,40 @@ function deletePost(id, token){
 	    confirmButtonText: 'Oui'
 	}).then((result) => {
 		if (result.value){
+			var data = {'comment_id': id, 'authenticate': token};
+
 			$.ajax({
-				type: 'GET',
-				url: 'index.php',
-				data: 'action=deletePost&id=' + id + '&token=' + token,
+				type: 'POST',
+				url: target,
+				data: data,
 				dataType: 'JSON',
 				success: function(data){
 					if(data.success){
 						swal({
-						    type: 'success',
-						    text: data.text,
-						    showConfirmButton: false,
-						    timer: 1500
+						    icon: 'success',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
 					    });
 
 					    setTimeout(function(){ location.reload(); }, 1500);
+					}
+					else
+					{
+						swal({
+						    icon: 'error',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
+					    });
 					}
 				},
 				error: function(data){
 					swal({
 						type: 'error',
 						text: data,
-						showConfirmButton: false,
-						timer: 1500
+						button: false,
+						timer: 2000
 					});
 				}
 			});

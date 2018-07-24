@@ -12,3 +12,18 @@ greenenjoy_report:
     path: /report
     defaults:
         _controller: GreenenjoyPostBundle:Comment:report
+
+greenenjoy_reported:
+    path: /dashboard/reported
+    defaults:
+        _controller: GreenenjoyPostBundle:Comment:reported
+
+greenenjoy_authorize_comment:
+    path: /dashboard/reported/authorize
+    defaults:
+        _controller: GreenenjoyPostBundle:Comment:authorize
+
+greenenjoy_delete_comment:
+    path: /dashboard/reported/delete
+    defaults:
+        _controller: GreenenjoyPostBundle:Comment:delete

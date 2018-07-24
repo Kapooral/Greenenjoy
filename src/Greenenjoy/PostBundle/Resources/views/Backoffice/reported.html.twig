@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Signalements</title>
+	</head>
+	<body>
+		{% if comments %}
+			{% for comment in comments %}
+				<div>
+					{{ comment.name }}<br/>
+					{{ comment.content }}<br/>
+					Le : {{ comment.commentDate | date('d-m-Y à H:i:s')}}<br/>
+					Signalé {{ comment.reported }} fois.<br/>
+					<a href="#" onclick="authorizeComment({{ comment.id }}, '{{ app.request.schemeAndHttpHost }}{{ path('greenenjoy_authorize_comment') }}', '{{ csrf_token('authenticate') }}')">Autoriser</a> | <a href="#" onclick="deleteComment({{ comment.id }}, '{{ app.request.schemeAndHttpHost }}{{ path('greenenjoy_delete_comment') }}', '{{ csrf_token('authenticate') }}')">Supprimer</a>
+				</div>
+				<br/>
+			{% endfor %}
+		{% else %}
+			<div>
+				<p>
+					Aucun commentaire signalé !
+				</p>
+			</div>
+		{% endif %}
+		
+
+		<script src = "{{ asset('bundles/greenenjoycore/jquery/jquery-3.3.1.js') }}"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="{{ asset('bundles/greenenjoycore/js/actions.js') }}"></script>
+	</body>
+</html>

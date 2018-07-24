@@ -61,16 +61,12 @@
 			<br />
 			<hr />
 
-			<form action="{{ path('greenenjoy_report') }}" method="post" name="report" >
-				<input type="hidden" value="{{ csrf_token('authenticate') }}" name="authenticate" />
-			</form>
-
 			{% for comment in comment_list %}
 				<div>
 					{{ comment.name }}<br />
 					{{ comment.content }}<br />
 					Le {{ comment.commentDate | date('d.m.Y à H:i:s') }} <br />
-					<a onclick = "reportComment({{ comment.id }})">Signaler</a>
+					<a href="#" onclick="reportComment({{ comment.id }}, '{{ app.request.schemeAndHttpHost }}{{ path('greenenjoy_report') }}', '{{ csrf_token('authenticate') }}')">Signaler</a>
 				</div>
 				<br />
 			{% endfor %}

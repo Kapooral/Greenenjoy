@@ -10,4 +10,12 @@ namespace Greenenjoy\PostBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getReported()
+	{
+		$queryBuilder = $this->createQueryBuilder('c');
+		$queryBuilder->where('c.reported > 0')->orderBy('c.reported', 'DESC');
+		$reported = $queryBuilder->getQuery()->getArrayResult();
+
+		return $reported;
+	}
 }
