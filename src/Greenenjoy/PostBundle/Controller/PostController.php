@@ -50,6 +50,7 @@ class PostController extends Controller
         $comment_list = $em->getRepository('GreenenjoyPostBundle:Comment')->findBy(array('post' => $post), array('commentDate' => 'desc'));
         $comment = new Comment();
         $comment_form = $this->createForm(CommentType::class, $comment);
+        $token = $request->request->get('_csrf_token');
 
         if ($request->isXmlHttpRequest() && $comment_form->handleRequest($request) && $comment_form->isValid()) {
             $comment->setPost($post);
@@ -58,6 +59,6 @@ class PostController extends Controller
             return $this->json(array('success' => 1, 'message' => 'Commentaire posté !'));
         }
 
-    	return $this->render('@GreenenjoyPost/Frontoffice/post_view.html.twig', array('post' => $post,'comment_list' => $comment_list, 'comment_form' => $comment_form->createView()));
+    	return $this->render('@GreenenjoyPost/Frontoffice/post_view.html.twig', array('post' => $post,'comment_list' => $comment_list, 'comment_form' => $comment_form->createView(), 'authenticate' => $token));
     }
 }

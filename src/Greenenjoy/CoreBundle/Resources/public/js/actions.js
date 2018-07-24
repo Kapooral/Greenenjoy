@@ -31,7 +31,6 @@ $(function() {
 				swal({
 					icon: 'error',
 					text: 'Votre commentaire n\'a pas été posté.',
-					showConfirmButton: false,
 					timer: 2000
 				});
 			}
@@ -42,46 +41,54 @@ $(function() {
 
 });
 
-function reportComment(id, token){
+function reportComment(id){
 
 	swal({
-	    type: 'warning',
+	    icon: 'warning',
 	    text: 'Voulez-vous signaler ce commentaire ?',
-	    showCancelButton: true,
-	    cancelButtonText: 'Non',
-	    cancelButtonColor: '#a94442',
-	    confirmButtonColor: '#3c763d',
-	    confirmButtonText: 'Oui'
+	    buttons: ['Annuler', 'Signaler']
 	}).then((result) => {
-		if (result.value){
+		if (result){
+			var form = $('[name=report]');
+			var type = form.attr('method');
+			var target = form.attr('action');
+			var data = {'comment_id': id, 'authenticate': form.find('[name]').val()};
+
 			$.ajax({
-				type: 'GET',
-				url: 'index.php',
-				data: 'action=report&id=' + id + '&token=' + token,
+				type: type,
+				url: target,
+				data: data,
 				dataType: 'JSON',
 				success: function(data){
 					if(data.success){
 						swal({
-						    type: 'success',
-						    text: data.text,
-						    showConfirmButton: false,
-						    timer: 1500
+						    icon: 'success',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
 					    });
-
-					    setTimeout(function(){ location.reload(); }, 1500);
+					}
+					else
+					{
+						swal({
+						    icon: 'error',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
+					    });
 					}
 				},
 				error: function(data){
 					swal({
-						type: 'error',
+						icon: 'error',
 						text: data,
-						showConfirmButton: false,
+						button: false,
 						timer: 1500
 					});
 				}
 			});
 		}
-	});	
+	});
 }
 
 

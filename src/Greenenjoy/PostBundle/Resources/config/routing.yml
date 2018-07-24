@@ -7,3 +7,8 @@ greenenjoy_view_post:
     path: /posts/{categorie}/{title}
     defaults:
         _controller: GreenenjoyPostBundle:Post:view
+
+greenenjoy_report:
+    path: /report
+    defaults:
+        _controller: GreenenjoyPostBundle:Comment:report
