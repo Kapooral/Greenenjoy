@@ -35,4 +35,12 @@ class CoreController extends Controller
 	{
 		return $this->render('@GreenenjoyCore/Default/dashboard.html.twig');
 	}
+
+	/**
+	 * @Security("has_role('ROLE_ADMIN')")
+	 */
+	public function postListAction($categorie, Request $request)
+	{
+		
+	}
 }

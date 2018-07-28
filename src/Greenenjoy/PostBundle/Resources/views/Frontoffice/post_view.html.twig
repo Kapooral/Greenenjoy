@@ -34,6 +34,14 @@
 			{% autoescape false %}
 				{{ post.content }}
 			{% endautoescape %}
+			<br />
+			<br />
+
+			{% if app.request.server.get("REMOTE_ADDR") in post.likes %}
+				<p>Article aimé !</p>
+			{% else %}
+				<a href="#" onclick="likePost({{ post.id }}, '{{ app.request.schemeAndHttpHost }}{{ path('greenenjoy_like') }}', '{{ csrf_token('authenticate') }}')">J'aime cet article !</a>
+			{% endif %}
 
 			<br />
 			<br />

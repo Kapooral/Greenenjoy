@@ -31,6 +31,9 @@ class CommentController extends Controller
 		return $this->redirectToroute('greenenjoy_homepage');
 	}
 
+	/**
+	 * @Security("has_role('ROLE_ADMIN')")
+	 */
 	public function reportedAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -40,6 +43,9 @@ class CommentController extends Controller
 		return $this->render('@GreenenjoyPost/Backoffice/reported.html.twig', array('comments' => $comments_reported, 'authenticate' => $token));
 	}
 
+	/**
+	 * @Security("has_role('ROLE_ADMIN')")
+	 */
 	public function authorizeAction(Request $request)
 	{
 		if ($request->isXmlHttpRequest()) {
@@ -64,6 +70,9 @@ class CommentController extends Controller
 		return $this->redirectToroute('greenenjoy_homepage');
 	}
 
+	/**
+	 * @Security("has_role('ROLE_ADMIN')")
+	 */
 	public function deleteAction(Request $request)
 	{
 		if ($request->isXmlHttpRequest()) {

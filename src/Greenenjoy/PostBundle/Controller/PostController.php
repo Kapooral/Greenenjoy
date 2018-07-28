@@ -37,6 +37,14 @@ class PostController extends Controller
     	return $this->render('@GreenenjoyPost/Backoffice/edit_post.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function deleteAction(Request $request)
+    {
+        
+    }
+
     public function viewAction($title, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -60,5 +68,26 @@ class PostController extends Controller
         }
 
     	return $this->render('@GreenenjoyPost/Frontoffice/post_view.html.twig', array('post' => $post,'comment_list' => $comment_list, 'comment_form' => $comment_form->createView(), 'authenticate' => $token));
+    }
+
+    public function likeAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest() && $this->isCsrfTokenValid('authenticate', $request->request->get('authenticate'))) {
+            $ip = $request->getClientIp();
+            $em = $this->getDoctrine()->getManager();
+            $post = $em->getRepository('GreenenjoyPostBundle:Post')->findOneby(array('id' => $request->request->get('post_id')));
+            if ($post === null){
+                return $this->json(array('success' => false, 'message' => 'Article introuvable !'));
+            }
+            elseif (in_array($ip, $post->getLikes())) {
+                return $this->json(array('success' => false, 'message' => 'Vous avez déjà aimé cet article !'));
+            }
+            $post->setLikes($ip);
+            $em->flush();
+
+            return $this->json(array('success' => true, 'message' => 'Article aimé !'));
+        }
+
+        return $this->redirectToRoute('greenenjoy_homepage');
     }
 }

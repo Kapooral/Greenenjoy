@@ -8,6 +8,11 @@ greenenjoy_view_post:
     defaults:
         _controller: GreenenjoyPostBundle:Post:view
 
+greenenjoy_like:
+    path: /like
+    defaults:
+        _controller: GreenenjoyPostBundle:Post:like
+
 greenenjoy_report:
     path: /report
     defaults:

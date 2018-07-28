@@ -191,6 +191,55 @@ function deleteComment(id, target, token){
 	});
 }
 
+function likePost(id, target, token) {
+
+	swal({
+	    icon: 'warning',
+	    text: 'Aimez-vous cet article ?',
+	    buttons: ['Annuler', 'Oui']
+	}).then((result) => {
+		if (result){
+
+			var data = {'post_id': id, 'authenticate': token};
+
+			$.ajax({
+				type: 'POST',
+				url: target,
+				data: data,
+				dataType: 'JSON',
+				success: function(data){
+					if(data.success){
+						swal({
+						    icon: 'success',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
+					    });
+
+					    setTimeout(function(){ location.reload(); }, 1500);
+					}
+					else
+					{
+						swal({
+						    icon: 'error',
+						    text: data.message,
+						    button: false,
+						    timer: 2000
+					    });
+					}
+				},
+				error: function(data){
+					swal({
+						type: 'error',
+						text: data,
+						button: false,
+						timer: 2000
+					});
+				}
+			});
+		}
+	});
+}
 
 function deletePost(id, token){
 
