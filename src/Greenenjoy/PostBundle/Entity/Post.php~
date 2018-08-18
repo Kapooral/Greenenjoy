@@ -87,14 +87,23 @@ class Post
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="postDate", type="date")
+     * @ORM\Column(name="postDate", type="datetime")
+     * @Assert\DateTime()
      */
     private $postDate;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="views", type="integer")
+     */
+    private $views;
 
     public function __construct()
     {
         $this->state = State::STANDBY;
         $this->likes = [];
+        $this->views = 0;
     }
 
     /**
@@ -327,5 +336,29 @@ class Post
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set author.
+     *
+     * @param \Greenenjoy\SecurityBundle\Entity\User $author
+     *
+     * @return Post
+     */
+    public function setAuthor(\Greenenjoy\SecurityBundle\Entity\User $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author.
+     *
+     * @return \Greenenjoy\SecurityBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

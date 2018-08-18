@@ -1,0 +1,39 @@
+{% extends 'GreenenjoyCoreBundle::back_layout.html.twig' %}
+
+	{% block content %}
+
+		<div class="col-lg-6">
+			<div class="row mb-5">
+				<div class="col-12">
+					<h3 class="py-3 border-bottom">Nouvelle catégorie</h3>
+				</div>
+			</div>
+			<div class="row mb-5">
+				<div class="col-12">
+					{{ form_start(form) }}
+					{{ form_errors(form) }}
+
+					<div class="form-group">
+						{{ form_label(form.name) }}
+						{{ form_errors(form.name) }}
+						{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+					</div>
+
+					{{ form_rest(form) }}
+					<button type="submit" class="btn btn-outline-info d-block mx-auto">Créer</button>
+					{{ form_end(form) }}
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 mb-5 mb-md-4">
+					<a href="{{ path('greenenjoy_dashboard') }}">
+						<div class="card">
+							<div class="card-body px-5">
+								<p class="card-text initial"><i class="fas fa-arrow-circle-left pr-3"></i>Tableau de bord</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% endblock %}

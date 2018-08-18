@@ -1,0 +1,20 @@
+div.card-deck > div, #less_content {
+	display: none;
+}
+
+.bg-salmon {
+	background-color: #EFDCD2;
+}
+
+.link {
+	text-decoration:  underline;
+}
+
+.initial {
+	color: initial;
+}
+
+.ml {
+	color: black;
+	text-decoration: underline;
+}

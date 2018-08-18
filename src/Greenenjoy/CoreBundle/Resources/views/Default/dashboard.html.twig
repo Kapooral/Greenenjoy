@@ -1,53 +1,84 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	</head>
-	<body>
-		<p>
-			<a href = "{{ path('greenenjoy_homepage') }}">Accueil</a>
-		</p>
-		<p>
-			<a href = "{{ path('greenenjoy_add_post') }}">Ajouter un article</a>
-		</p>
-		<br />
-		<br />
+{% extends 'GreenenjoyCoreBundle::back_layout.html.twig' %}
 
-		<p>Catégories d'articles</p>
-		<hr />
-		<p>
-			<a href = "#">Ma boîte à pharmacie</a>
-		</p>
-		<p>
-			<a href = "#">Slow Attitude</a>
-		</p>
-		<p>
-			<a href = "#">Slow Conso</a>
-		</p>
-		<p>
-			<a href = "#">Slow Food</a>
-		</p>
-		<p>
-			<a href = "#">Slow Beauty</a>
-		</p>
-		<br />
-		<br />
+	{% block content %}
 
-		<p>Commentaires</p>
-		<hr />
-		<p>
-			<a href = "{{ path('greenenjoy_reported') }}">Commentaires signalés</a>
-		</p>
-		<br />
-		<br />
+		<div class="col-lg-6">
 
-		<p>Mon profil</p>
-		<hr />
-		<p>
-			<a href = "#">Modifier mes informations</a>
-		</p>
-		<p>
-			<a href = "{{ path('greenenjoy_logout') }}">Se déconnecter</a>
-		</p>
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<p>{{ message }}</p>
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('error') %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
 
-	</body>
-</html>
+			<div class="row mb-5">
+				<div class="col-12">
+					<h3 class="py-3 border-bottom">Tableau de bord</h3>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 mb-5 mb-md-4">
+					<a href="{{ path('greenenjoy_add_post') }}">
+						<div class="card">
+							<div class="card-body px-5">
+								<p class="card-text initial"><i class="fas fa-plus-circle pr-3"></i>Ajouter un article</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-6 mb-2 mb-md-4">
+					<a href="{{ path('greenenjoy_post_list') }}">
+						<div class="card">
+							<div class="card-body px-5">
+								<p class="card-text initial"><i class="fas fa-th-list pr-3"></i>Mes articles</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-6 mb-2 mb-md-4">
+					<a href="{{ path('greenenjoy_reported') }}">
+						<div class="card">
+							<div class="card-body px-5">
+								<p class="card-text initial"><i class="fas fa-flag pr-3"></i>Signalements</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-6 mb-md-4">
+					<a href="{{ path('greenenjoy_edit_infos') }}">
+						<div class="card">
+							<div class="card-body px-5">
+								<p class="card-text initial"><i class="fas fa-cogs pr-3"></i>Modifier mes informations</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="row my-4">
+				<div class="col-12">
+					<h4 class="py-3 border-bottom">Quelques chiffres</h4>
+				</div>
+			</div>
+			<div class="row d-flex justify-content-center">
+				{% if mostLiked is not null %}
+				<div class="col-md-5">
+					<a href="{{ path('greenenjoy_view_post', {'category' : mostLiked.categorie.slug, 'title' : mostLiked.slug}) }}"><img class="img-fluid mb-3"src="{{ asset('uploads/img/') }}{{ mostLiked.image.id }}.{{ mostLiked.image.extension }}" alt="{{ mostLiked.image.alt }}" /></a>
+					<p class="text-center text-uppercase">{{ mostLiked.title }}</p>
+					<h6 class="text-center">Article le plus aimé <i class="fas fa-heart"></i></h6>
+				</div>
+				{% endif %}
+				{% if mostViewed is not null %}
+				<div class="col-md-5">
+					<a href="{{ path('greenenjoy_view_post', {'category' : mostViewed.categorie.slug, 'title' : mostViewed.slug}) }}"><img class="img-fluid mb-3"src="{{ asset('uploads/img/') }}{{ mostViewed.image.id }}.{{ mostViewed.image.extension }}" alt="{{ mostViewed.image.alt }}" /></a>
+					<p class="text-center text-uppercase">{{ mostViewed.title }}</p>
+					<h6 class="text-center">Article le plus lu <i class="far fa-eye"></i></h6>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+
+	{% endblock %}

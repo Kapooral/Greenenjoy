@@ -1,8 +1,10 @@
 <?php
 
-Namespace Greenenjoy\CoreBundle\Email;
+Namespace Greenenjoy\CoreBundle\Service;
 
 use Greenenjoy\SecurityBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Greenenjoy\PostBundle\Entity\Post;
 
 class Mailing
 {
@@ -11,13 +13,15 @@ class Mailing
 	 */
 	private $mailer;
 	private $mailerUser;
+	private $em;
 	private $templating;
 
-	public function __construct(\Swift_Mailer $mailer, $mailerUser, \Twig_Environment $templating)
+	public function __construct(\Swift_Mailer $mailer, \Twig_Environment $templating, EntityManagerInterface $em, $mailerUser)
 	{
 		$this->mailer = $mailer;
-		$this->mailerUser = $mailerUser;
 		$this->templating = $templating;
+		$this->em = $em;
+		$this->mailerUser = $mailerUser;
 	}
 
 	public function recoveryPassword(User $user)
@@ -35,5 +39,18 @@ class Mailing
 		$message->setBody($this->templating->render('@GreenenjoyCore/Email/confirm_pass.html.twig'), 'text/html');
 		$message->setFrom([$this->mailerUser => 'Greenenjoy - Slow your life'])->setTo($user->getEmail());
 		$this->mailer->send($message);
+	}
+
+	public function newPost(Post $post)
+	{
+		$subscribers = $this->em->getRepository('GreenenjoyCoreBundle:Subscribers')->findAll();
+		$message = new \Swift_Message('Nouvelle publication');
+		$message->setBody($this->templating->render('@GreenenjoyCore/Email/new_post.html.twig', array('post' => $post)), 'text/html');
+		$message->setFrom([$this->mailerUser => 'Greenenjoy - Slow your life']);
+
+		foreach ($subscribers as $subscriber) {
+			$message->setTo($subscriber->getEmail());
+			$this->mailer->send($message);
+		}
 	}
 }

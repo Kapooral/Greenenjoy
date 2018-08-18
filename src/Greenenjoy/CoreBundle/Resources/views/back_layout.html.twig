@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		{% include 'GreenenjoyCoreBundle:Sections:head.html.twig' %}
+
+	</head>
+
+	<body>
+
+		{% include 'GreenenjoyCoreBundle:Sections:header.html.twig' %}
+
+		<div class="container-fluid py-5 bg-light">
+			<div class="row justify-content-center">
+
+				{% block content %}{% endblock %}
+				
+			</div>
+		</div>
+
+		{% include 'GreenenjoyCoreBundle:Sections:script.html.twig' %}
+
+		{% block js %}{% endblock %}
+	</body>
+</html>

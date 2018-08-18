@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+
+		<p>Une nouvelle publication est disponible à l'adresse suivante</p>
+		<a href="{{ app.request.schemeAndHttpHost }}{{ path('greenenjoy_view_post', {'category' : post.categorie.slug, 'title' : post.slug}) }}">Lire</a>
+		
+	</body>
+</html>

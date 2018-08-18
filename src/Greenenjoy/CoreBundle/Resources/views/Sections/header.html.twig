@@ -1,0 +1,29 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white shadow">
+    <a class="navbar-brand d-lg-none d-block mx-auto" href="{{ path('greenenjoy_homepage') }}"><img class="d-inline-block align-top" src="{{ asset('bundles/greenenjoycore/img/Logo.png') }}" alt="logo" width="150" height="38"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto lead">
+            <li class="nav-item mx-5">
+                <a class="nav-link" href="{{ path('greenenjoy_homepage') }}">Accueil</a>
+            </li>
+            <li class="nav-item dropdown mx-5">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    De corps &amp; d'esprit
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {{ render(controller('GreenenjoyCoreBundle:Core:menu')) }}
+                </div>
+            </li>
+            <li class="nav-item mx-5">
+                <a class="nav-link" href="{{ path('login') }}">Mon Compte</a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item mx-5">
+                <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

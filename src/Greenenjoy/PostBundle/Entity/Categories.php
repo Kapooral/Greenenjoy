@@ -29,6 +29,8 @@ class Categories
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
+     * @Assert\Length(min=2, minMessage="Le nom doit être de {{ limit }} minimum.")
      */
     private $name;
 

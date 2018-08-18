@@ -26,6 +26,7 @@ class PostType extends AbstractType
                     'label' => 'Contenu',
                     'required' => false))
                 ->add('image', ImageType::class, array(
+                    'label' => 'Image de couverture',
                     'required' => false))
                 ->add('categorie', EntityType::class, array(
                     'class' => 'GreenenjoyPostBundle:Categories',

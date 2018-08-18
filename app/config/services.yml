@@ -14,13 +14,21 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
-    Greenenjoy\SecurityBundle\DataFixtures\:
-        resource: '../../src/Greenenjoy/SecurityBundle/DataFixtures/*'
-        tags: ['doctrine.fixtures.orm']
+    #Greenenjoy\SecurityBundle\DataFixtures\:
+     #   resource: '../../src/Greenenjoy/SecurityBundle/DataFixtures/*'
+      #  tags: ['doctrine.fixtures.orm']
 
-    Greenenjoy\PostBundle\DataFixtures\:
-        resource: '../../src/Greenenjoy/PostBundle/DataFixtures/*'
-        tags: ['doctrine.fixtures.orm']
+    #Greenenjoy\PostBundle\DataFixtures\:
+     #   resource: '../../src/Greenenjoy/PostBundle/DataFixtures/*'
+      #  tags: ['doctrine.fixtures.orm']
+
+    Greenenjoy\:
+        resource: '../../src/Greenenjoy/*'
+        exclude: '../../src/Greenenjoy/{Entity,Repository,Form,Tests,Roles,State}'
+
+    Greenenjoy\CoreBundle\Service\Mailing:
+        arguments:
+            $mailerUser: '%mailer_user%'
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

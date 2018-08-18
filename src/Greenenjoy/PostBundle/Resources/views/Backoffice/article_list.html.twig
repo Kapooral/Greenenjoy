@@ -1,46 +1,59 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		{% if categorie %}
-			<title>{{ categorie.name }}</title>
-		{% else %}
-			<title>Greenenjoy - Aucune catégorie</title>
-		{% endif %}
-	</head>
-	<body>
+{% extends 'GreenenjoyCoreBundle::back_layout.html.twig' %}
 
-		{% if categorie %}
+	{% block content %}
 
-			<p>
-				Catégorie : {{ categorie.name }}
-			</p>
-			<hr />
+		<div class="col-lg-6">
+			<div class="row mb-5">
+				<div class="col-12">
+					<h3 class="py-3 border-bottom">Liste des articles</h3>
+				</div>
+			</div>
+			<div class="row mb-5">
+				<div class="col-12">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Titre</th>
+								<th scope="col">Catégorie</th>
+								<th scope="col">Statut</th>
+								<th scope="col"><i class="fas fa-cog"></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if posts %}
+								{% for post in posts %}
+								<tr>
+									<th scope="row">{{ loop.index }}</th>
+									<td><a href="{{ path('greenenjoy_edit_post', {'slug' : post.slug}) }}">{{ post.title }}</a></td>
+									<td>{{ post.categorie.name }}</td>
+									<td>{{ post.state }}</td>
+									<td>
+										<a href="#" onclick="deletePost({{ post.id }}, '{{ app.request.schemeAndHttpHost }}{{ path('greenenjoy_delete_post') }}', '{{ csrf_token('authenticate') }}')"><i class="fas fa-trash"></i></a>
+									</td>
+								</tr>
+								{% endfor %}
+							{% else %}
+								<tr>
+									<th scope="row"></th>
+									<td>Rien à afficher</td>
+								</tr>
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 mb-5 mb-md-4">
+					<a href="{{ path('greenenjoy_dashboard') }}">
+						<div class="card">
+							<div class="card-body px-5">
+								<p class="card-text initial"><i class="fas fa-arrow-circle-left pr-3"></i>Tableau de bord</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
 
-			{% if categorie.posts | length > 0 %}
-
-				{% for post in categorie.posts %}
-					<p>
-						<a href="#">{{ post.title }}</a><br/>
-						Posté : le {{ post.postDate | date('d.m.Y') }}
-					</p>
-				{% endfor %}
-
-			{% else %}
-				<p>
-					Aucune annonce publié dans cette catégorie.
-				</p>
-			{% endif %}
-
-		{% else %}
-
-			{% for message in app.flashes('error') %}
-				<p>
-					{{ message }}
-				</p>
-			{% endfor %}
-
-		{% endif %}
-
-	</body>
-</html>
+	{% endblock %}

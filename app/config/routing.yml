@@ -1,12 +1,14 @@
 greenenjoy_post:
-    resource: "@GreenenjoyPostBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: "@GreenenjoyPostBundle/Controller/"
+    type: annotation
 
 greenenjoy_core:
-    resource: "@GreenenjoyCoreBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: "@GreenenjoyCoreBundle/Controller/"
+    type: annotation
 
 greenenjoy_security:
-    resource: "@GreenenjoySecurityBundle/Resources/config/routing.yml"
-    prefix:   /
-    #type: annotation
+    resource: "@GreenenjoySecurityBundle/Controller/"
+    type: annotation
+
+logout:
+    path: /logout

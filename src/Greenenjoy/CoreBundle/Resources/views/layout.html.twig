@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		{% include 'GreenenjoyCoreBundle:Sections:head.html.twig' %}
+
+	</head>
+
+	<body>
+
+		{% include 'GreenenjoyCoreBundle:Sections:header.html.twig' %}
+
+		<div class="container-fluid">
+			<div class="row my-4 d-none d-lg-block">
+				<div class="col-lg-2">
+					<a href="{{ path('greenenjoy_homepage') }}"><img class="img-fluid" src="{{ asset('bundles/greenenjoycore/img/Logo.png') }}" alt="logo"></a>
+				</div>
+			</div>
+			<div class="row">
+				{% include 'GreenenjoyCoreBundle:Sections:biography.html.twig' %}
+
+				{% block content %}{% endblock %}
+
+				{% include 'GreenenjoyCoreBundle:Sections:right_side.html.twig' %}
+				
+			</div>
+		</div>
+
+		{% include 'GreenenjoyCoreBundle:Sections:footer.html.twig' %}
+
+		{% include 'GreenenjoyCoreBundle:Sections:script.html.twig' %}
+
+		{% block js %}{% endblock %}
+	</body>
+</html>

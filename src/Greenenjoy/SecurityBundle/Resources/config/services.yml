@@ -2,10 +2,4 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-        public: true
-
-    greenenjoy.account.recovery:
-        class: Greenenjoy\SecurityBundle\Account\Recovery
-        arguments:
-            - "@greenenjoy.email.mailing"
-            - "@request_stack"
+        public: false

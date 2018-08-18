@@ -1,0 +1,3 @@
+{% for category in listCategory %}
+    <a class="dropdown-item" href="{{ path('greenenjoy_front_category', {'slug': category.slug}) }}">{{ category.name }}</a>
+{% endfor %}

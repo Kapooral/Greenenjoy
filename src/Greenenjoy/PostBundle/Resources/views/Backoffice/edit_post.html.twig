@@ -1,58 +1,72 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Editer un article</title>
-	</head>
-	<body>
+{% extends 'GreenenjoyCoreBundle::back_layout.html.twig' %}
+	
+	{% block content %}
 
-		{{ form_start(form) }}
-		{{ form_errors(form) }}
+	<div class="col-lg-6">
+		<div class="row mb-5">
+			<div class="col-12">
+				<h3 class="py-3 border-bottom">Édition d'article</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				{{ form_start(form) }}
+				{{ form_errors(form) }}
 
-		<div>
-			{{ form_label(form.title) }}
-			{{ form_errors(form.title) }}
-			{{ form_widget(form.title) }}
-		</div>
-		<div>
-			{{ form_label(form.subtitle) }}
-			{{ form_errors(form.subtitle) }}
-			{{ form_widget(form.subtitle) }}
-		</div>
-		<div>
-			{{ form_label(form.content) }}
-			{{ form_errors(form.content) }}
-			{{ form_widget(form.content) }}
-		</div>
-		<div>
-			{{ form_errors(form.image) }}
-			{{ form_widget(form.image) }}
-		</div>
-		<div>
-			{{ form_label(form.categorie) }}
-			{{ form_errors(form.categorie) }}
-			{{ form_widget(form.categorie) }}
-		</div>
+				<div class="form-group my-2">
+					{{ form_label(form.title) }}
+					{{ form_errors(form.title) }}
+					{{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group my-2">
+					{{ form_label(form.subtitle) }}
+					{{ form_errors(form.subtitle) }}
+					{{ form_widget(form.subtitle, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group my-2">
+					{{ form_label(form.content) }}
+					{{ form_errors(form.content) }}
+					{{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group my-2">
+					{{ form_label(form.image) }}
+					{{ form_errors(form.image) }}
+					{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group my-2">
+					{{ form_label(form.categorie) }}
+					{{ form_errors(form.categorie) }}
+					{{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+				</div>
 
-		{{ form_rest(form) }}
+				{{ form_rest(form) }}
 
-		<input type="submit" value="Publier" />
-		{{ form_end(form) }}
+				<button type="submit" class="btn btn-outline-info d-block my-4 my-lg-5 mx-auto">Publier</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
 
+	{% endblock %}
+
+	{% block js %}
 		<script src = "{{ asset('bundles/greenenjoycore/jquery/jquery-3.3.1.js') }}"></script>
 		<script src = "{{ asset('bundles/greenenjoycore/tinymce/js/tinymce/tinymce.min.js') }}"></script>
   		<script>
   			tinymce.init({
   				selector:'textarea#post_content',
+  				height: 300,
+  				resize: false,
+  				elementpath: false,
+  				branding: false,
   				auto_focus: 'post_content',
   				language: "fr_FR",
-  				plugins: "image, link, anchor, lists, table, textcolor colorpicker, charmap, contextmenu, help, hr, nonbreaking, preview, print, searchreplace, wordcount, visualblocks", 
-		    	toolbar: "undo redo | bold italic underline | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table anchor link image",
-		    	contextmenu: "undo redo | bold italic underline | link image inserttable | cell row column deletetable",
+  				plugins: [ 'link', 'lists', 'textcolor colorpicker', 'print', 'contextmenu', 'nonbreaking', 'searchreplace', 'wordcount', 'image' ], 
+		    	toolbar: 'undo redo | bold italic underline strikethrough forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | link | image',
+		    	contextmenu: 'undo redo | bold italic underline strikethrough | link ',
 		    	forced_root_block: false,
 		    	force_br_newlines: true,
-		    	force_p_newlines: false});
+		    	force_p_newlines: false,
+		    	});
   		</script>
-
-	</body>
-</html>
+  	{% endblock %}

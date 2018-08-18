@@ -29,6 +29,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Length(min=2, minMessage="Votre prénom doit faire au minimum {{ limit }} caractères.")
      */
     private $name;
 
@@ -36,6 +37,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
+     * @Assert\Length(min=2, minMessage="Votre nom doit faire au minimum {{ limit }} caractères.")
      */
     private $lastName;
 
@@ -43,6 +45,7 @@ class User implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     * @Assert\Length(min=2, minMessage="Votre nom d'affichage doit faire au minimum {{ limit }} caracctères.")
      */
     private $username;
 
@@ -50,6 +53,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email(message="Veuillez entrer une adresse e-mail correcte.", checkMX=true)
      */
     private $email;
 
@@ -57,11 +61,13 @@ class User implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="instagram", type="string", length=255, nullable=true)
+     * @Assert\Length(min=2, minMessage="Votre nom Instagram doit faire au minimum {{ limit }} caractères.")
      */
     private $instagram;
 
     /**
      * @ORM\OneToOne(targetEntity="Greenenjoy\PostBundle\Entity\Image", cascade={"persist","remove"})
+     * @Assert\Valid()
      */
     private $profilePicture;
 
@@ -69,11 +75,13 @@ class User implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="biography", type="text", nullable=true)
+     * @Assert\Length(min=50, minMessage="Votre biographie doit faire au minimum {{ limit }} caracctères.")
      */
     private $biography;
 
     /**
      * @ORM\OneToOne(targetEntity="Greenenjoy\PostBundle\Entity\Image", cascade={"persist","remove"})
+     * @Assert\Valid()
      */
     private $coverBiography;
 
@@ -81,6 +89,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Regex(pattern="#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$#", message="Votre mot de passe doit faire au minimum 6 caractères et contenir au moins 1 lettre min, 1 lettre maj et 1 chiffre.")
      */
     private $password;
 
@@ -95,6 +104,7 @@ class User implements UserInterface
      * @var array
      *
      * @ORM\Column(name="roles", type="array")
+     * @Assert\NotBlank(message="Aucun type de profil n'a été affilié à ce compte.")
      */
     private $roles;
 

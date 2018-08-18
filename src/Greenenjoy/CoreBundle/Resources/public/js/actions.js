@@ -1,8 +1,9 @@
 $(function() {
 
-	$('[name=greenenjoy_postbundle_comment]').on('submit', function(e){
+	$('[name=subscribe_form]').on('submit', function(e){
 		var form = $(this);
 		var type = form.attr('method');
+		var target = form.attr('action');
 		var data = {};
 
 		form.find('[name]').each(function(index, value) {
@@ -14,23 +15,32 @@ $(function() {
 
 		$.ajax({
 			type: type,
-			url: location.href,
+			url: target,
 			data: data,
 			dataType: 'JSON',
 			success: function(data){
-				swal({
-				    icon: 'success',
-				    text: data.message,
-				    button: false,
-				    timer: 2000
-			    });
-
-			    setTimeout(function(){ location.reload(); }, 1500);
+				if(data.success){
+					swal({
+					    icon: 'success',
+					    text: data.message,
+					    button: false,
+					    timer: 2000
+				    });
+				}
+				else
+				{
+					swal({
+					    icon: 'info',
+					    text: data.message,
+					    button: false,
+					    timer: 2000
+				    });
+				}
 			},
 			error: function(response){
 				swal({
 					icon: 'error',
-					text: 'Votre commentaire n\'a pas été posté.',
+					text: 'Une erreur est survenue.',
 					timer: 2000
 				});
 			}
@@ -38,7 +48,6 @@ $(function() {
 
 		e.preventDefault();
 	});
-
 });
 
 function reportComment(id, target, token){
@@ -79,7 +88,7 @@ function reportComment(id, target, token){
 				error: function(data){
 					swal({
 						icon: 'error',
-						text: data,
+						text: 'Une erreur est survenue.',
 						button: false,
 						timer: 1500
 					});
@@ -130,7 +139,7 @@ function authorizeComment(id, target, token){
 				error: function(data){
 					swal({
 						type: 'error',
-						text: data,
+						text: 'Une erreur est survenue.',
 						button: false,
 						timer: 2000
 					});
@@ -181,7 +190,7 @@ function deleteComment(id, target, token){
 				error: function(data){
 					swal({
 						type: 'error',
-						text: data,
+						text: 'Une erreur est survenue.',
 						button: false,
 						timer: 2000
 					});
@@ -231,7 +240,7 @@ function likePost(id, target, token) {
 				error: function(data){
 					swal({
 						type: 'error',
-						text: data,
+						text: 'Une erreur est survenue.',
 						button: false,
 						timer: 2000
 					});
@@ -241,19 +250,16 @@ function likePost(id, target, token) {
 	});
 }
 
-function deletePost(id, token){
+function deletePost(id, target, token){
 
 	swal({
-	    type: 'warning',
+	    icon: 'warning',
 	    text: 'Voulez-vous supprimer cet article ?',
-	    showCancelButton: true,
-	    cancelButtonText: 'Non',
-	    cancelButtonColor: '#a94442',
-	    confirmButtonColor: '#3c763d',
-	    confirmButtonText: 'Oui'
+	    buttons: ['Annuler', 'Supprimer']
 	}).then((result) => {
-		if (result.value){
-			var data = {'comment_id': id, 'authenticate': token};
+		if (result){
+
+			var data = {'post_id': id, 'authenticate': token};
 
 			$.ajax({
 				type: 'POST',
@@ -284,7 +290,7 @@ function deletePost(id, token){
 				error: function(data){
 					swal({
 						type: 'error',
-						text: data,
+						text: 'Une erreur est survenue.',
 						button: false,
 						timer: 2000
 					});

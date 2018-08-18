@@ -1,30 +1,73 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Page d'accueil</title>
-	</head>
-	<body>
-		
-		<p>
-			<a href="{{ path('greenenjoy_login') }}">Se connecter</a>
-		</p>
-		<hr />
+{% extends 'GreenenjoyCoreBundle::layout.html.twig' %}
 
-		{% if categories %}
+	{% block content %}
 
-			{% for categorie in categories %}
-				<p>
-					<a href="{{ path('greenenjoy_bycategorie', { 'categorie': categorie.slug }) }}">{{ categorie.name }}</a>
-				</p>
+		<div class="col-lg-6">
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<p>{{ message }}</p>
+				</div>
 			{% endfor %}
+			{% for message in app.flashes('error') %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
+			
+			<div class="row mb-5">
+				<div class="col-12">
+					<img class="img-fluid" src="{{ asset('bundles/greenenjoycore/img/matterhorn_in_alps-wallpaper-2560x1440.jpg') }}" alt="Image section" />
+				</div>
+			</div>
+			{% if posts is defined %}
+				<div class="row mb-1">
+					<div class="col-12">
+						<h6>Derniers Articles</h6>
+					</div>
+				</div>
+				<div class="row d-flex align-items-center justify-content-between">
+				{% for post in posts %}
 
-		{% endif %}
-		
-		<hr />
-		<p>
-			<a href="https://www.instagram.com/hi_nella_e/">Retrouvez-moi sur instagram</a>
-		</p>
+				<div class="col-md-6 mb-5">
+					<a href="{{ path('greenenjoy_view_post', {'category' : post.categorie.slug, 'title' : post.slug}) }}"><img class="img-fluid mb-3"src="{{ asset('uploads/img/') }}{{ post.image.id }}.{{ post.image.extension }}" alt="{{ post.image.alt }}" /></a>
+					<p class="text-uppercase m-0">{{ post.title }}</p>
+					<p class="text-justify m-0">
+						ipsum lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</p>
+					<p class="text-center mt-4">
+						<a role="button" href="{{ path('greenenjoy_view_post', {'category' : post.categorie.slug, 'title' : post.slug}) }}" class="btn btn-outline-info">Lire l'article</a>
+					</p>
+				</div>
 
-	</body>
-</html>
+				{% endfor %}
+				{% elseif category is defined %}
+					<div class="row mb-1">
+						<div class="col-12">
+							<h6>Derniers Articles : {{ category.name }}</h6>
+						</div>
+					</div>
+					<div class="row d-flex align-items-center justify-content-between">
+					{% if category.posts | length > 0 %}
+						{% for post in category.posts %}
+
+						<div class="col-md-6 mb-5">
+							<a href="{{ path('greenenjoy_view_post', {'category' : category.slug, 'title' : post.slug}) }}"><img class="img-fluid mb-3"src="{{ asset('uploads/img/') }}{{ post.image.id }}.{{ post.image.extension }}" alt="{{ post.image.alt }}" /></a>
+							<p class="text-uppercase m-0">{{ post.title }}</p>
+							<p class="text-justify m-0">
+								ipsum lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</p>
+							<p class="text-center mt-4">
+								<a role="button" href="{{ path('greenenjoy_view_post', {'category' : category.slug, 'title' : post.slug}) }}" class="btn btn-outline-info">Lire l'article</a>
+							</p>
+						</div>
+
+						{% endfor %}
+					{% else %}
+						<p class="text-center py-5 bg-light">Aucun article</p>
+					{% endif %}
+					
+				{% endif %}
+			</div>
+		</div>
+	{% endblock %}

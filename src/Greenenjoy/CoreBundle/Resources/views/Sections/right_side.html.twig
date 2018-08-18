@@ -1,0 +1,25 @@
+<div class="col-lg-3">
+	<div class="row bg-salmon">
+		<div class="col-9 mx-auto py-5">
+			<form action="{{ path('greenenjoy_search') }}", method="post">
+				<div class="input-group">
+			      <input class="form-control py-2 border-right-0 border" name="search" placeholder="Rechercher un article">
+			      <span class="input-group-append">
+			            <button type="submit" class="btn btn-outline-info"><i class="fa fa-search"></i></button>
+			      </span>
+				</div>
+			</form>
+			<hr class="col-3 mt-4 mb-0">
+		</div>
+	</div>
+	<div class="row bg-salmon mt-4">
+		<div class="col-9 mx-auto py-5">
+			<h6 class="text-uppercase text-center">Abonnez-vous à ce blog</h6>
+			<p>Rejoignez mes abonnés en saisissant votre adresse e-mail pour recevoir mes nouvelles publications.</p>
+			<form action="{{ path('greenenjoy_subscribe') }}" method="post" name="subscribe_form">
+				<input name="email"class="form-control py-2" type="email" placeholder="Adresse e-mail">
+				<button type="submit" class="btn btn-outline-info d-block mx-auto mt-4 mb-0">M'abonner</button>
+			</form>
+		</div>
+	</div>
+</div>

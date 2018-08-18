@@ -35,6 +35,8 @@ class Post
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
+     * @Assert\Length(min=2, minMessage="Le titre doit être de {{ limit }} caractères minimum.")
      */
     private $title;
 
@@ -48,6 +50,7 @@ class Post
      * @var string|null
      *
      * @ORM\Column(name="subtitle", type="string", length=255, nullable=true)
+     * @Assert\Length(min=2, minMessage="Le titre doit être de {{ limit }} caractères minimum.")
      */
     private $subtitle;
 
@@ -55,6 +58,8 @@ class Post
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
+     * @Assert\Length(min=2, minMessage="Le contenu doit être de {{ limit }} caractères minimum.")
      */
     private $content;
 
@@ -87,14 +92,23 @@ class Post
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="postDate", type="date")
+     * @ORM\Column(name="postDate", type="datetime")
+     * @Assert\DateTime()
      */
     private $postDate;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="views", type="integer")
+     */
+    private $views;
 
     public function __construct()
     {
         $this->state = State::STANDBY;
         $this->likes = [];
+        $this->views = 0;
     }
 
     /**
@@ -351,5 +365,29 @@ class Post
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set views.
+     *
+     * @param int $views
+     *
+     * @return Post
+     */
+    public function setViews($views)
+    {
+        $this->views += $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views.
+     *
+     * @return int
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 }

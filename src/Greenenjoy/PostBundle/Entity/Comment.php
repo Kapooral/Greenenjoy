@@ -32,6 +32,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
+     * @Assert\Length(min=2, minMessage="Votre nom doit être de {{ limit }} caractères minimum.")
      */
     private $name;
 
@@ -39,6 +41,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
+     * @Assert\Length(min=2, minMessage="Votre commentaire doit être de {{ limit }} caractères minimum.")
      */
     private $content;
 
@@ -46,7 +50,7 @@ class Comment
      * @var \DateTime
      *
      * @ORM\Column(name="commentDate", type="datetime")
-     * @Assert\DateTime()
+     * @Assert\DateTime(message="La date de publication est incorrecte.")
      */
     private $commentDate;
 
@@ -154,7 +158,7 @@ class Comment
      */
     public function setReported($reported)
     {
-        $this->reported = $reported;
+        $this->reported += $reported;
 
         return $this;
     }

@@ -29,17 +29,17 @@ security:
             provider: main
 
             form_login:
-                login_path: greenenjoy_login
-                check_path: greenenjoy_login_check
-                default_target_path: greenenjoy_dashboard
+                login_path: login
+                check_path: login
+                default_target_path: /dashboard
                 csrf_token_generator: security.csrf.token_manager
 
             remember_me:
                 secret: '%secret%'
 
             logout:
-                path: greenenjoy_logout
-                target: greenenjoy_homepage
+                path: /logout
+                target: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

@@ -1,0 +1,27 @@
+{% extends 'GreenenjoyCoreBundle::layout.html.twig' %}
+
+	{% block content %}
+		<div class="col-lg-6">
+			<div class="row mb-5">
+				<div class="col-12">
+					<img class="img-fluid" src="{{ asset('bundles/greenenjoycore/img/matterhorn_in_alps-wallpaper-2560x1440.jpg') }}" alt="Image section" />
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col-12">
+					<h4>Résultats de recherche</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					{% if result_search is not null %}
+						{% for result in result_search %}
+							<p><a href="{{ path('greenenjoy_view_post', {'category' : result.categorie.slug, 'title' : result.slug}) }}">{{ result.title }}</a></p>
+						{% endfor %}
+					{% else %}
+						<p>Aucun résultat pour cette recherche</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endblock %}

@@ -6,20 +6,23 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Greenenjoy\SecurityBundle\Entity\User;
-use Greenenjoy\CoreBundle\Email\Mailing;
+use Greenenjoy\CoreBundle\Service\Mailing;
 
-class Recovery
+class Manager
 {
 	private $mailer;
 	private $flashMessage;
+	private $validator;
 	private $em;
 	private $encoder;
 
-	public function __construct(Mailing $mailer, RequestStack $requestStack, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
+	public function __construct(Mailing $mailer, RequestStack $requestStack, ValidatorInterface $validator, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
 	{
 		$this->mailer = $mailer;
 		$this->flashMessage = $requestStack->getCurrentRequest()->getSession()->getFlashBag();
+		$this->validator = $validator;
 		$this->em = $em;
 		$this->encoder = $encoder;
 	}
@@ -56,9 +59,9 @@ class Recovery
 			return;
 		}
 
+		$this->mailer->recoveryPassword($user);
 		$user->setToken(bin2hex(random_bytes(16)));
 		$this->em->flush();
-		$this->mailer->recoveryPassword($user);
 		$this->flashMessage->add('success', 'Vous allez recevoir un mail de réinitialisation.');
 	}
 
@@ -84,5 +87,46 @@ class Recovery
 		$user->setPassword($encoded);
 
 		return $user;
+	}
+
+	public function edit_infos($user, $form)
+	{
+		if (!$this->encoder->isPasswordValid($user, $form->get('current_password')->getData())) {
+			$return = array('success' => false, 'message' => 'Le mot de passe actuel est incorrect !');
+			return $return;
+		}
+
+		if ($form->get('profilePicture')) {
+			$user->setProfilePicture($form->get('profilePicture')->getData());
+		}
+
+		if ($form->get('email')) {
+			$existingUser = $this->getUser($form->get('email')->getData());
+			if ($existingUser instanceof User) {
+				return;
+			}
+
+			$user->setEmail($form->get('email')->getData());
+		}
+
+		if ($form->get('username')) {
+			$user->setUsername($form->get('username')->getData());
+		}
+
+		if ($form->get('instagram')) {
+			$user->getInstagram($form->get('instagram')->getData());
+		}
+
+		if ($form->get('coverBiography')) {
+			$user->setCoverBiography($form->get('coverBiography')->getData());
+		}
+
+		if ($form->get('biography')) {
+			$user->setBiography($form->get('biography')->getData());
+		}
+
+		if ($form->get('password')) {
+			$this->encodePassword($user, $form->get('password')->getData());
+		}
 	}
 }
