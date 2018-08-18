@@ -66,26 +66,6 @@ class User implements UserInterface
     private $instagram;
 
     /**
-     * @ORM\OneToOne(targetEntity="Greenenjoy\PostBundle\Entity\Image", cascade={"persist","remove"})
-     * @Assert\Valid()
-     */
-    private $profilePicture;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="biography", type="text", nullable=true)
-     * @Assert\Length(min=50, minMessage="Votre biographie doit faire au minimum {{ limit }} caracctères.")
-     */
-    private $biography;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Greenenjoy\PostBundle\Entity\Image", cascade={"persist","remove"})
-     * @Assert\Valid()
-     */
-    private $coverBiography;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
@@ -223,30 +203,6 @@ class User implements UserInterface
     }
 
     /**
-     * Set facebook
-     *
-     * @param string|null $facebook
-     *
-     * @return User
-     */
-    public function setFacebook($facebook = null)
-    {
-        $this->facebook = $facebook;
-
-        return $this;
-    }
-
-    /**
-     * Get facebook
-     *
-     * @return string|null
-     */
-    public function getFacebook()
-    {
-        return $this->facebook;
-    }
-
-    /**
      * Set instagram
      *
      * @param string|null $instagram
@@ -268,102 +224,6 @@ class User implements UserInterface
     public function getInstagram()
     {
         return $this->instagram;
-    }
-
-    /**
-     * Set tweeter
-     *
-     * @param string|null $tweeter
-     *
-     * @return User
-     */
-    public function setTweeter($tweeter = null)
-    {
-        $this->tweeter = $tweeter;
-
-        return $this;
-    }
-
-    /**
-     * Get tweeter
-     *
-     * @return string|null
-     */
-    public function getTweeter()
-    {
-        return $this->tweeter;
-    }
-
-    /**
-     * Set profilePicture
-     *
-     * @param string|null $profilePicture
-     *
-     * @return User
-     */
-    public function setProfilePicture($profilePicture = null)
-    {
-        $this->profilePicture = $profilePicture;
-
-        return $this;
-    }
-
-    /**
-     * Get profilePicture
-     *
-     * @return string|null
-     */
-    public function getProfilePicture()
-    {
-        return $this->profilePicture;
-    }
-
-    /**
-     * Set biography
-     *
-     * @param string|null $biography
-     *
-     * @return User
-     */
-    public function setBiography($biography = null)
-    {
-        $this->biography = $biography;
-
-        return $this;
-    }
-
-    /**
-     * Get biography
-     *
-     * @return string|null
-     */
-    public function getBiography()
-    {
-        return $this->biography;
-    }
-
-    /**
-     * Set coverBiography
-     *
-     * @param string|null $coverBiography
-     *
-     * @return User
-     */
-    public function setCoverBiography($coverBiography = null)
-    {
-        $this->coverBiography = $coverBiography;
-
-        return $this;
-    }
-
-    /**
-     * Get coverBiography
-     *
-     * @return string|null
-     */
-    public function getCoverBiography()
-    {
-        return $this->coverBiography;
     }
 
     /**

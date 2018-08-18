@@ -158,7 +158,7 @@ class Comment
      */
     public function setReported($reported)
     {
-        $this->reported += $reported;
+        $this->reported = $reported;
 
         return $this;
     }

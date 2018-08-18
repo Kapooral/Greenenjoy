@@ -3,11 +3,10 @@
 namespace Greenenjoy\CoreBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Greenenjoy\CoreBundle\Entity\Subscribers;
 use Greenenjoy\PostBundle\Entity\Post;
 use Greenenjoy\CoreBundle\Service\Mailing;
 
-class NewPost
+class NewPostListener
 {
 	private $mailer;
 
@@ -18,7 +17,7 @@ class NewPost
 
 	public function postPersist(LifecycleEventArgs $args)
 	{
-		$entity = $args->getEntity();
+		$entity = $args->getObject();
 
 		if (!$entity instanceof Post) {
 			return;

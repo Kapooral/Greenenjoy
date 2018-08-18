@@ -89,44 +89,15 @@ class Manager
 		return $user;
 	}
 
-	public function edit_infos($user, $form)
+	public function edit($user, $form)
 	{
-		if (!$this->encoder->isPasswordValid($user, $form->get('current_password')->getData())) {
-			$return = array('success' => false, 'message' => 'Le mot de passe actuel est incorrect !');
-			return $return;
-		}
-
-		if ($form->get('profilePicture')) {
-			$user->setProfilePicture($form->get('profilePicture')->getData());
-		}
-
-		if ($form->get('email')) {
-			$existingUser = $this->getUser($form->get('email')->getData());
-			if ($existingUser instanceof User) {
-				return;
-			}
-
-			$user->setEmail($form->get('email')->getData());
-		}
-
-		if ($form->get('username')) {
-			$user->setUsername($form->get('username')->getData());
-		}
-
-		if ($form->get('instagram')) {
-			$user->getInstagram($form->get('instagram')->getData());
-		}
-
-		if ($form->get('coverBiography')) {
-			$user->setCoverBiography($form->get('coverBiography')->getData());
-		}
-
-		if ($form->get('biography')) {
-			$user->setBiography($form->get('biography')->getData());
-		}
-
-		if ($form->get('password')) {
+		if ($form->get('password')->getData()) {
 			$this->encodePassword($user, $form->get('password')->getData());
+			$this->mailer->confirmEditPassword($user);
 		}
+
+		$this->em->flush();
+		$this->mailer->confirmEditPassword($user);
+		$this->flashMessage->add('success', 'Informations à jour !');
 	}
 }

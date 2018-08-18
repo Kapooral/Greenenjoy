@@ -20,7 +20,7 @@
 					<p class="text-right m-0"><small>Ipsum lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.Ipsum lorem ipsum dolor sit amet, consectetur.</small></p>
 				</div>
 				<div class="col-3 col-md-2 d-flex flex-column justify-content-start align-items-center">
-					<img class="rounded-circle" width="80px" height="80px" src="{{ asset('uploads/img/12.jpg') }}">
+					<img class="rounded-circle" width="80px" height="80px" src="{{ asset('bundles/greenenjoycore/img/20.jpeg') }}">
 					<small>{{ post.author.username }}</small>
 				</div>
 				<div class="col-12">
@@ -78,7 +78,7 @@
 			{% if comment_list | length > 0 %}
 			<div class="row mx-auto">
 				
-				<div class="card-deck">
+				<div class="card-deck col-12">
 
 					{% for comment in comment_list %}
 					<div class="col-md-9 col-lg-8 mx-auto mb-3 mb-lg-4 p-0">

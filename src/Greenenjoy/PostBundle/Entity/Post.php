@@ -376,7 +376,7 @@ class Post
      */
     public function setViews($views)
     {
-        $this->views += $views;
+        $this->views = $views;
 
         return $this;
     }

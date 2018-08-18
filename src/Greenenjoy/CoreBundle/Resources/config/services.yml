@@ -3,7 +3,3 @@ services:
         autowire: true
         autoconfigure: true
         public: false
-
-    Greenenjoy\CoreBundle\EventListener\NewPost:
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }

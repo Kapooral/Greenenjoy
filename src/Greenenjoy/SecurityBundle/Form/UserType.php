@@ -8,20 +8,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Greenenjoy\PostBundle\Form\ImageType;
 
-class InfosType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('profilePicture', ImageType::class, array(
-                    'label' => 'Photo de profil',
-                    'required' => false))
+        $builder->add('username', TextType::class, array(
+                    'required' => false,
+                    'label' => 'Nom d\'affichage'))
+                ->add('instagram', TextType::class, array(
+                    'required' => false,
+                    'label' => 'Compte Instagram'))
                 ->add('email', RepeatedType::class, array(
                     'type' => EmailType::class,
                     'required' => false,
@@ -31,21 +29,10 @@ class InfosType extends AbstractType
                     'second_options' => array(
                         'label' => 'Confirmez la nouvelle adressse e-mail',
                         'attr' => array('autocomplete' => 'off'))))
-                ->add('username', TextType::class, array(
-                    'required' => false,
-                    'label' => 'Nom d\'affichage'))
-                ->add('instagram', TextType::class, array(
-                    'required' => false,
-                    'label' => 'Compte Instagram'))
-                ->add('coverBiography', ImageType::class, array(
-                    'label' => 'Image de biographie',
-                    'required' => false))
-                ->add('biography', TextareaType::class, array(
-                    'required' => false,
-                    'label' => 'Biographie'))
                 ->add('password', RepeatedType::class, array(
                     'type' => PasswordType::class,
                     'required' => false,
+                    'mapped' => false,
                     'invalid_message' => 'Le mot de passe doit être identique.',
                     'first_options' => array(
                         'label' => 'Nouveau mot de passe'),
@@ -53,9 +40,20 @@ class InfosType extends AbstractType
                         'label' => 'Confirmez le nouveau mot de passe')))
                 ->add('current_password', PasswordType::class, array(
                     'label' => 'Mot de passe actuel',
-                    'attr' => array('autocomplete' => 'off')));
+                    'mapped' => false));
+    }/**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Greenenjoy\SecurityBundle\Entity\User'
+        ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix()
     {
         return 'greenenjoy_securitybundle_user';

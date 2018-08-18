@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 // For Entities
 use Greenenjoy\SecurityBundle\Form\ResetPasswordType;
-use Greenenjoy\SecurityBundle\Form\InfosType;
+use Greenenjoy\SecurityBundle\Form\UserType;
 // Services
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -92,13 +92,23 @@ class SecurityController extends Controller
 	 * @Route("/dashboard/informations", name="greenenjoy_edit_infos")
 	 * @Security("has_role('ROLE_ADMIN')")
 	 */
-	public function editInfosAction(Request $request)
+	public function editInfosAction(Request $request, UserPasswordEncoderInterface $encoder, Manager $accountManager)
 	{
 		$user = $this->getUser();
-		$form = $this->createForm(InfosType::class);
+		$form = $this->createForm(UserType::class, $user);
+		$form->handleRequest($request);
 		
-		if ($request->isMethod('POST') && $form->handleRequest($request)) {
-			return new Response(var_dump($form->get('current_password')->getData()));
+		if ($form->isSubmitted()) {
+			$currentPwd = $form->get('current_password')->getData();
+			if ($encoder->isPasswordValid($user, $currentPwd)) {
+				if ($form->isValid()) {
+					$accountManager->edit($user, $form);
+					return $this->redirectToRoute('greenenjoy_dashboard');
+				}
+			} else {
+				$request->getSession()->getFlashBag()->add('error', 'Le mot de passe est incorrect !');
+				return $this->redirectToRoute('greenenjoy_edit_infos');
+			}
 		}
 
 		return $this->render('@GreenenjoySecurity/Default/modif_infos.html.twig', array('form' => $form->createView()));

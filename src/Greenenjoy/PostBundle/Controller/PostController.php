@@ -68,6 +68,7 @@ class PostController extends Controller
             }
             $post->setPostDate(new \DateTime());
             $em->flush();
+            $request->getSession()->getFlashBag()->add('success', 'Article publié !');
             return $this->redirectToRoute('greenenjoy_dashboard');
         }
 
@@ -120,7 +121,7 @@ class PostController extends Controller
             $request->getSession()->getFlashBag()->add('error', 'Aucune annonce de ce titre n\'a été trouvée.');
             return $this->redirectToRoute('greenenjoy_homepage');
         }
-        $post->setViews(1);
+        $post->setViews($post->getViews() + 1);
         $comment_list = $em->getRepository('GreenenjoyPostBundle:Comment')->findBy(array('post' => $post), array('commentDate' => 'desc'));
         $comment = new Comment();
         $comment_form = $this->createForm(CommentType::class, $comment);

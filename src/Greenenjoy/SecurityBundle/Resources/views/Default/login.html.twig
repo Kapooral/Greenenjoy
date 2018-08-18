@@ -3,6 +3,11 @@
 	{% block content %}
 
 		<div class="col-lg-6">
+			{% if error %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					{{ error.message }}
+				</div>
+			{% endif %}
 			<div class="row mb-5">
 				<div class="col-12">
 					<h3 class="py-3 border-bottom">Connexion</h3>

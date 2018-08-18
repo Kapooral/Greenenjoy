@@ -31,7 +31,7 @@ class CommentController extends Controller
 
 					return $this->json(array('success' => false, 'message' => 'Commentaire introuvable !'));
 				}
-				$comment->setReported(1);
+				$comment->setReported($comment->getReported() + 1);
 				$em->flush();
 				
 				return $this->json(array('success' => true, 'message' => 'Commentaire signalé !'));
