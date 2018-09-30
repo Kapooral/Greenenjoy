@@ -59,9 +59,9 @@ class Manager
 			return;
 		}
 
-		$this->mailer->recoveryPassword($user);
 		$user->setToken(bin2hex(random_bytes(16)));
 		$this->em->flush();
+		$this->mailer->recoveryPassword($user);
 		$this->flashMessage->add('success', 'Vous allez recevoir un mail de réinitialisation.');
 	}
 

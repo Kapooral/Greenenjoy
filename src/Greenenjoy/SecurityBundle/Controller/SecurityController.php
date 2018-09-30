@@ -80,7 +80,7 @@ class SecurityController extends Controller
 		elseif ($request->query->get('email') && $request->query->get('identifier')) {
 			$email = $request->query->get('email');
 			$token = $request->query->get('identifier');
-			if ($accountService->verify($email, $token) != null) {
+			if ($accountManager->verify($email, $token) != null) {
 
 				return $this->render('@GreenenjoySecurity/Default/reset_password.html.twig', array('form' => $form->createView(), 'email' => $email));
 			}
